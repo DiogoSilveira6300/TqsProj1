@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class Cache {
 
-    private static final long EXPIRE_AFTER = 5;
+    private static final long EXPIRE_AFTER = 1; // changed to 1 for testing more quickly, it should be 5 though
 
     private static class CityWrapper {
 
