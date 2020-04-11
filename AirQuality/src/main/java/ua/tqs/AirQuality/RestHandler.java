@@ -16,6 +16,9 @@ public class RestHandler {
     @Autowired
     private Cache cache;
 
+    @Autowired
+    private ExternalAPI externalAPI;
+
     // proper REST API
 
     private City getCityFromExternalApi(String name, String state, String country)
@@ -24,7 +27,7 @@ public class RestHandler {
         int aqi;
         String mainProblem, timeStamp;
 
-        JSONObject jObject = new JSONObject(ExternalAPI.requestForCity(name, state, country)).getJSONObject("data");
+        JSONObject jObject = new JSONObject(externalAPI.requestForCity(name, state, country)).getJSONObject("data");
         JSONArray coordinates = jObject.getJSONObject("location").getJSONArray("coordinates");
 
         coords = new Coords(coordinates.getDouble(0), coordinates.getDouble(1));
@@ -43,7 +46,7 @@ public class RestHandler {
         String name, state, country, mainProblem, timeStamp;
         int aqi;
 
-        JSONObject jObject = new JSONObject(ExternalAPI.requestForCoords(lat, lon)).getJSONObject("data");
+        JSONObject jObject = new JSONObject(externalAPI.requestForCoords(lat, lon)).getJSONObject("data");
         name = jObject.getString("city");
         state = jObject.getString("state");
         country = jObject.getString("country");

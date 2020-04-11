@@ -1,14 +1,17 @@
 package ua.tqs.AirQuality;
 
 import okhttp3.*;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 
+@Component
 public class ExternalAPI {
 
-    private static final String KEY = "5f04858d-63b8-4aa7-b1d9-f870b2132550";
+    private final String KEY = "5f04858d-63b8-4aa7-b1d9-f870b2132550";
 
-    public static String requestForCity(String city, String state, String name) throws IOException {
+    public String requestForCity(String city, String state, String name) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -18,7 +21,7 @@ public class ExternalAPI {
         return client.newCall(request).execute().body().string();
     }
 
-    public static String requestForCoords(String lat, String lon) throws IOException {
+    public String requestForCoords(String lat, String lon) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
