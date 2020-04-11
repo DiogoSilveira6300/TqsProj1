@@ -2,8 +2,6 @@ package ua.tqs.AirQuality;
 
 import lombok.*;
 
-import javax.persistence.*;
-
 @ToString
 @EqualsAndHashCode()
 @Data
