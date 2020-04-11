@@ -22,13 +22,35 @@ public class RestHandler {
 
     // proper REST API
 
-    private City getFromExternalApi(String name, String state, String country)
+    private City getCityFromExternalApi(String name, String state, String country)
             throws JSONException, IOException {
         Coords coords;
         int aqi;
         String mainProblem, timeStamp;
 
-        JSONObject jObject = new JSONObject(ExternalAPI.request(name, state, country)).getJSONObject("data");
+        JSONObject jObject = new JSONObject(ExternalAPI.requestForCity(name, state, country)).getJSONObject("data");
+        JSONArray coordinates = jObject.getJSONObject("location").getJSONArray("coordinates");
+
+        coords = new Coords(coordinates.getDouble(0), coordinates.getDouble(1));
+
+        jObject = jObject.getJSONObject("current").getJSONObject("pollution");
+
+        aqi =  jObject.getInt("aqius");
+        mainProblem = jObject.getString("mainus");
+        timeStamp = jObject.getString("ts");
+        return new City(name, state, country, coords, aqi, mainProblem, timeStamp);
+    }
+
+    private City getCoordsFromExternalApi(String lat, String lon)
+            throws JSONException, IOException {
+        Coords coords;
+        String name, state, country, mainProblem, timeStamp;
+        int aqi;
+
+        JSONObject jObject = new JSONObject(ExternalAPI.requestForCoords(lat, lon)).getJSONObject("data");
+        name = jObject.getString("city");
+        state = jObject.getString("state");
+        country = jObject.getString("country");
         JSONArray coordinates = jObject.getJSONObject("location").getJSONArray("coordinates");
 
         coords = new Coords(coordinates.getDouble(0), coordinates.getDouble(1));
@@ -48,7 +70,19 @@ public class RestHandler {
         City cached = cache.get(request);
         if (cached != null) return cached;
 
-        City newCity = getFromExternalApi(name, state, country);
+        City newCity = getCityFromExternalApi(name, state, country);
+        cache.add(request, newCity.copy());
+        return newCity;
+    }
+
+    @GetMapping("/coords/{lat}/{lon}")
+    public City getDataForCoords(@PathVariable String lat, @PathVariable String lon)
+            throws IOException, JSONException {
+        String request = String.format("/coords/%s/%s", lat, lon);
+        City cached = cache.get(request);
+        if (cached != null) return cached;
+
+        City newCity = getCoordsFromExternalApi(lat, lon);
         cache.add(request, newCity.copy());
         return newCity;
     }
