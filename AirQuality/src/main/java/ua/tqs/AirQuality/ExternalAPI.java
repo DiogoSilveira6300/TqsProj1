@@ -2,7 +2,6 @@ package ua.tqs.AirQuality;
 
 import okhttp3.*;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 

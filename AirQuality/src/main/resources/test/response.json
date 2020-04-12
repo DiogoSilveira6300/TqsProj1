@@ -1,0 +1,31 @@
+{"status":"success",
+  "data":{
+    "city":"Lisbon",
+    "state":"Lisbon",
+    "country":"Portugal",
+    "location":{
+      "type":"Point",
+      "coordinates":[
+        -9.131168,
+        38.721676]
+    },
+    "current":{
+      "weather":{
+        "ts":"2020-04-11T23:00:00.000Z",
+        "tp":13,
+        "pr":1018,
+        "hu":87,
+        "ws":3.6,
+        "wd":310,
+        "ic":"02n"
+      },
+      "pollution":{
+        "ts":"2020-04-11T23:00:00.000Z",
+        "aqius":4,
+        "mainus":"p2",
+        "aqicn":1,
+        "maincn":"p2"
+      }
+    }
+  }
+}

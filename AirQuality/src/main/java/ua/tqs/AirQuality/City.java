@@ -38,4 +38,16 @@ public class City {
                 coords, aqi, mainProblem,
                 timeStamp);
     }
+
+    @Override
+    public boolean equals(Object o){
+        City other = (City) o;
+        return this.name.equals(((City) o).name) &&
+                this.state.equals(((City) o).state) &&
+                this.country.equals(((City) o).country) &&
+                this.coords.equals(((City) o).coords) &&
+                this.aqi == ((City) o).aqi &&
+                this.mainProblem.equals(((City) o).mainProblem) &&
+                this.timeStamp.equals(((City) o).timeStamp);
+    }
 }

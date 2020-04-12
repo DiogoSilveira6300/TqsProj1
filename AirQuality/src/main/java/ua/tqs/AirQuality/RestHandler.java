@@ -20,33 +20,11 @@ public class RestHandler {
     private ExternalAPI externalAPI;
 
     // proper REST API
-
-    private City getCityFromExternalApi(String name, String state, String country)
-            throws JSONException, IOException {
+    private City buildCity(JSONObject jObject) throws JSONException {
         Coords coords;
         int aqi;
-        String mainProblem, timeStamp;
-
-        JSONObject jObject = new JSONObject(externalAPI.requestForCity(name, state, country)).getJSONObject("data");
-        JSONArray coordinates = jObject.getJSONObject("location").getJSONArray("coordinates");
-
-        coords = new Coords(coordinates.getDouble(0), coordinates.getDouble(1));
-
-        jObject = jObject.getJSONObject("current").getJSONObject("pollution");
-
-        aqi =  jObject.getInt("aqius");
-        mainProblem = jObject.getString("mainus");
-        timeStamp = jObject.getString("ts");
-        return new City(name, state, country, coords, aqi, mainProblem, timeStamp);
-    }
-
-    private City getCoordsFromExternalApi(String lat, String lon)
-            throws JSONException, IOException {
-        Coords coords;
         String name, state, country, mainProblem, timeStamp;
-        int aqi;
 
-        JSONObject jObject = new JSONObject(externalAPI.requestForCoords(lat, lon)).getJSONObject("data");
         name = jObject.getString("city");
         state = jObject.getString("state");
         country = jObject.getString("country");
@@ -62,33 +40,53 @@ public class RestHandler {
         return new City(name, state, country, coords, aqi, mainProblem, timeStamp);
     }
 
+    private City getCityFromExternalApi(String name, String state, String country)
+            throws JSONException, IOException {
+        JSONObject jObject = new JSONObject(externalAPI.requestForCity(name, state, country)).getJSONObject("data");
+        return buildCity(jObject);
+    }
+
+    private City getCoordsFromExternalApi(String lat, String lon)
+            throws JSONException, IOException {
+        JSONObject jObject = new JSONObject(externalAPI.requestForCoords(lat, lon)).getJSONObject("data");
+        return buildCity(jObject);
+    }
+
     @GetMapping("/city/{name}/state/{state}/country/{country}")
     public City getDataForCity(@PathVariable String name, @PathVariable String state, @PathVariable String country)
-            throws IOException, JSONException {
+            throws IOException {
         String request = String.format("/city/%s/state/%s/country/%s", name, state, country);
         City cached = cache.get(request);
         if (cached != null) return cached;
 
-        City newCity = getCityFromExternalApi(name, state, country);
-        cache.add(request, newCity.copy());
-        return newCity;
+        try {
+            City newCity = getCityFromExternalApi(name, state, country);
+            cache.add(request, newCity.copy());
+            return newCity;
+        } catch (JSONException e){
+            throw new IllegalArgumentException("URL arguments do not match any valid response.");
+        }
     }
 
     @GetMapping("/coords/{lat}/{lon}")
     public City getDataForCoords(@PathVariable String lat, @PathVariable String lon)
-            throws IOException, JSONException {
+            throws IOException {
         String request = String.format("/coords/%s/%s", lat, lon);
         City cached = cache.get(request);
         if (cached != null) return cached;
 
-        City newCity = getCoordsFromExternalApi(lat, lon);
-        cache.add(request, newCity.copy());
-        return newCity;
+        try {
+            City newCity = getCoordsFromExternalApi(lat, lon);
+            cache.add(request, newCity.copy());
+            return newCity;
+        } catch (JSONException e){
+            throw new IllegalArgumentException("URL arguments do not match any valid response.");
+        }
     }
 
     // cache stats
 
-    private static class CacheStats {
+    static class CacheStats {
         private final int requests;
         private final int hits;
         private final int misses;

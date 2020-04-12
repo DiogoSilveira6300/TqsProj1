@@ -27,4 +27,10 @@ public class Coords {
     public void setLon(double lon) {
         this.lon = lon;
     }
+
+    @Override
+    public boolean equals(Object o){
+        return this.lat == ((Coords) o).lat &&
+                this.lon == ((Coords) o).lon;
+    }
 }
