@@ -3,6 +3,7 @@ package ua.tqs.AirQuality;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,33 +86,8 @@ public class RestHandler {
     }
 
     // cache stats
-
-    static class CacheStats {
-        private final int requests;
-        private final int hits;
-        private final int misses;
-
-        CacheStats(Cache cache){
-            this.requests = cache.getRequests();
-            this.hits = cache.getHits();
-            this.misses = cache.getMisses();
-        }
-
-        public int getRequests(){
-            return requests;
-        }
-
-        public int getHits(){
-            return hits;
-        }
-
-        public int getMisses(){
-            return misses;
-        }
-    }
-
     @GetMapping("/cache_stats")
-    public CacheStats cacheStats(){
-        return new CacheStats(cache);
+    public Cache.CacheStats cacheStats(){
+        return cache.getStats();
     }
 }

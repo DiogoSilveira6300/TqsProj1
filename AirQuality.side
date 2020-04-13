@@ -1,0 +1,180 @@
+{
+  "id": "2aa0483d-52b7-47a2-ab17-fbd2245ccbec",
+  "version": "2.0",
+  "name": "AirQuality",
+  "url": "http://localhost:8080/home",
+  "tests": [{
+    "id": "e7947b9c-05c3-4e02-ab50-e980df8b10a3",
+    "name": "Lisbon",
+    "commands": [{
+      "id": "6f2efaab-31f1-436a-a92d-75ed71b950e8",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/home",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8ee215f-6688-457d-b7a0-efce36c2700d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1366x741",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a4e8402d-eb2c-4523-bbb9-9d6ae0eb851b",
+      "comment": "",
+      "command": "assertTitle",
+      "target": "Air Quality",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "23802839-0dab-40c9-b6df-b44525248f46",
+      "comment": "",
+      "command": "click",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c2b69ab4-ec43-4859-903e-6e715d20e271",
+      "comment": "",
+      "command": "type",
+      "target": "id=city",
+      "targets": [
+        ["id=city", "id"],
+        ["name=city", "name"],
+        ["css=#city", "css:finder"],
+        ["xpath=//input[@id='city']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Lisbon"
+    }, {
+      "id": "7863c206-25ae-43ac-a319-c9e019166734",
+      "comment": "",
+      "command": "click",
+      "target": "id=state",
+      "targets": [
+        ["id=state", "id"],
+        ["name=state", "name"],
+        ["css=#state", "css:finder"],
+        ["xpath=//input[@id='state']", "xpath:attributes"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "262a0656-6a32-4de8-aa2f-f61775ad0175",
+      "comment": "",
+      "command": "type",
+      "target": "id=state",
+      "targets": [
+        ["id=state", "id"],
+        ["name=state", "name"],
+        ["css=#state", "css:finder"],
+        ["xpath=//input[@id='state']", "xpath:attributes"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "Lisbon"
+    }, {
+      "id": "816f4878-4ffd-43d3-9879-18a7919dc508",
+      "comment": "",
+      "command": "click",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6d0022a-ab65-409d-9813-b1bf4b171bef",
+      "comment": "",
+      "command": "type",
+      "target": "id=country",
+      "targets": [
+        ["id=country", "id"],
+        ["name=country", "name"],
+        ["css=#country", "css:finder"],
+        ["xpath=//input[@id='country']", "xpath:attributes"],
+        ["xpath=//div[6]/input", "xpath:position"]
+      ],
+      "value": "Portugal"
+    }, {
+      "id": "f229df5d-ccb5-4139-98f1-4bf37c73653a",
+      "comment": "",
+      "command": "click",
+      "target": "id=search",
+      "targets": [
+        ["id=search", "id"],
+        ["css=#search", "css:finder"],
+        ["xpath=//input[@id='search']", "xpath:attributes"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b8d83c4d-43ec-42cf-8853-da52c1dc18b9",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.row > #city",
+      "targets": [
+        ["css=.row > #city", "css:finder"],
+        ["xpath=//div[@id='city']", "xpath:attributes"],
+        ["xpath=//div[@id='data']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]", "xpath:position"]
+      ],
+      "value": "Lisbon"
+    }, {
+      "id": "dcbde170-dd98-4fbb-b425-07cfe8483d42",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row > #city",
+      "targets": [
+        ["css=.row > #city", "css:finder"],
+        ["xpath=//div[@id='city']", "xpath:attributes"],
+        ["xpath=//div[@id='data']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]", "xpath:position"]
+      ],
+      "value": "Lisbon"
+    }, {
+      "id": "86fbfaaa-5520-4707-a697-54165765480c",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row > #state",
+      "targets": [
+        ["css=.row > #state", "css:finder"],
+        ["xpath=//div[@id='state']", "xpath:attributes"],
+        ["xpath=//div[@id='data']/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": "Lisbon"
+    }, {
+      "id": "74a67b44-b9d3-4d6c-b964-28eb2148e8d7",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row > #country",
+      "targets": [
+        ["css=.row > #country", "css:finder"],
+        ["xpath=//div[@id='country']", "xpath:attributes"],
+        ["xpath=//div[@id='data']/div[3]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]", "xpath:position"]
+      ],
+      "value": "Portugal"
+    }]
+  }],
+  "suites": [{
+    "id": "0f187135-22f4-414f-8d59-e265ff2d83e3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/", "http://localhost:8080/home"],
+  "plugins": []
+}

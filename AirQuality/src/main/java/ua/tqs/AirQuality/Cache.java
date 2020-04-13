@@ -1,11 +1,11 @@
 package ua.tqs.AirQuality;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-@Component
+@Service
 public class Cache {
 
     private static final long EXPIRE_AFTER = 1; // changed to 1 for testing more quickly, it should be 5 though
@@ -62,15 +62,39 @@ public class Cache {
         }
     }
 
-    public int getRequests(){
-        return hits + misses;
-    }
-
     public int getHits(){
         return hits;
     }
 
     public int getMisses(){
         return misses;
+    }
+
+    public static class CacheStats {
+        private final int hits;
+        private final int misses;
+        private final int requests;
+
+        CacheStats(int hits, int misses){
+            this.hits = hits;
+            this.misses = misses;
+            this.requests = misses + hits;
+        }
+
+        public int getRequests(){
+            return requests;
+        }
+
+        public int getHits(){
+            return hits;
+        }
+
+        public int getMisses(){
+            return misses;
+        }
+    }
+
+    public CacheStats getStats(){
+        return new CacheStats(this.getHits(), this.getMisses());
     }
 }

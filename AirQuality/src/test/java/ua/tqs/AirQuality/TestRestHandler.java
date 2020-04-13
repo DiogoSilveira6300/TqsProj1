@@ -89,22 +89,19 @@ public class TestRestHandler {
 
     @Test
     public void testCacheStatsHits(){
-        when(cache.getHits()).thenReturn(5);
-        RestHandler.CacheStats cacheStats = restHandler.cacheStats();
-        assertEquals(5, cacheStats.getHits());
+        when(cache.getStats()).thenReturn(new Cache.CacheStats(2, 3));
+        assertEquals(2, cache.getStats().getHits());
     }
 
     @Test
     public void testCacheStatsMisses(){
-        when(cache.getMisses()).thenReturn(4);
-        RestHandler.CacheStats cacheStats = restHandler.cacheStats();
-        assertEquals(4, cacheStats.getMisses());
+        when(cache.getStats()).thenReturn(new Cache.CacheStats(2, 3));
+        assertEquals(3, cache.getStats().getMisses());
     }
 
     @Test
     public void testCacheStatsRequests(){
-        when(cache.getRequests()).thenReturn(9);
-        RestHandler.CacheStats cacheStats = restHandler.cacheStats();
-        assertEquals(9, cacheStats.getRequests());
+        when(cache.getStats()).thenReturn(new Cache.CacheStats(2, 3));
+        assertEquals(5, cache.getStats().getRequests());
     }
 }

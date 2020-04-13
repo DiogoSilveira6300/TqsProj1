@@ -46,7 +46,6 @@ public class TestCache {
     public void testInit(){
         assertEquals(cache.getMisses(), 0);
         assertEquals(cache.getHits(),0);
-        assertEquals(cache.getRequests(), 0);
     }
 
     // test add
@@ -73,7 +72,7 @@ public class TestCache {
 
     // test expire
     @Test
-    @Disabled // because it takes too musch time
+    @Disabled // because it takes too much time, comment to execute
     public void testExpire() throws InterruptedException {
         cache.add(key2, nyc);
         TimeUnit.SECONDS.sleep(70);
@@ -100,7 +99,7 @@ public class TestCache {
     }
 
     // test misses after expire
-    @Disabled // because it takes too much time
+    @Disabled // because it takes too much time, comment to execute
     @Test
     public void testGetMissesAfterExpire() throws InterruptedException {
         cache.add(key2, nyc);
@@ -109,12 +108,31 @@ public class TestCache {
         assertEquals(cache.getMisses(), 1);
     }
 
-    // tests total requests
+    // tests stats hits
     @Test
-    public void testGetRequests(){
+    public void testGetStatsHits(){
         cache.get(key0);
         cache.get(key1);
         cache.get(key2);
-        assertEquals(cache.getRequests(), 3);
+        assertEquals(cache.getStats().getHits(), 2);
+    }
+
+    // test stats misses
+    @Test
+    public void testGetStatsMisses(){
+        cache.get(key0);
+        cache.get(key1);
+        cache.get(key2);
+        assertEquals(cache.getStats().getMisses(), 1);
+    }
+
+    // test stats requests
+    @Test
+    public void testGetStatsRequests(){
+        cache.get(key0);
+        cache.get(key1);
+        cache.get(key2);
+        assertEquals(cache.getStats().getRequests(),
+                cache.getStats().getHits() + cache.getStats().getMisses());
     }
 }
