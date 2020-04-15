@@ -36,12 +36,12 @@ public class TestCity {
     }
 
     @Test
-    public void equalsNull(){
+    public void testEqualsNull(){
         assertNotEquals(city, null);
     }
 
     @Test
-    public void equalsNotCity(){
+    public void testEqualsNotCity(){
         Object o = new Object();
         assertNotEquals(city, o);
     }
