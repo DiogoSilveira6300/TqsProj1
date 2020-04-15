@@ -72,7 +72,7 @@ public class TestCache {
 
     // test expire
     @Test
-    // @Disabled // because it takes too much time, comment to execute
+    // @Disabled // because it takes too much time, comment to execute it
     public void testExpire() throws InterruptedException {
         cache.add(key2, nyc);
         TimeUnit.SECONDS.sleep(70);
@@ -99,7 +99,7 @@ public class TestCache {
     }
 
     // test misses after expire
-    // @Disabled // because it takes too much time, comment to execute
+    // @Disabled // because it takes too much time, comment to execute it
     @Test
     public void testGetMissesAfterExpire() throws InterruptedException {
         cache.add(key2, nyc);
