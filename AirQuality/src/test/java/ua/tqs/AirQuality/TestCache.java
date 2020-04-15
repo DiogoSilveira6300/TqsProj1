@@ -44,8 +44,8 @@ public class TestCache {
     // tests conditions after initializing
     @Test
     public void testInit(){
-        assertEquals(cache.getMisses(), 0);
-        assertEquals(cache.getHits(),0);
+        assertEquals(0, cache.getMisses());
+        assertEquals(0, cache.getHits());
     }
 
     // test add
@@ -72,7 +72,7 @@ public class TestCache {
 
     // test expire
     @Test
-    @Disabled // because it takes too much time, comment to execute
+    // @Disabled // because it takes too much time, comment to execute
     public void testExpire() throws InterruptedException {
         cache.add(key2, nyc);
         TimeUnit.SECONDS.sleep(70);
@@ -86,7 +86,7 @@ public class TestCache {
         cache.get(key0);
         cache.get(key1);
         cache.get(key2);
-        assertEquals(cache.getHits(), 2);
+        assertEquals(2, cache.getHits());
     }
 
     // tests misses
@@ -95,17 +95,17 @@ public class TestCache {
         cache.get(key0);
         cache.get(key1);
         cache.get(key2);
-        assertEquals(cache.getMisses(), 1);
+        assertEquals(1, cache.getMisses());
     }
 
     // test misses after expire
-    @Disabled // because it takes too much time, comment to execute
+    // @Disabled // because it takes too much time, comment to execute
     @Test
     public void testGetMissesAfterExpire() throws InterruptedException {
         cache.add(key2, nyc);
         TimeUnit.SECONDS.sleep(70);
         City city = cache.get(key2);
-        assertEquals(cache.getMisses(), 1);
+        assertEquals(1, cache.getMisses());
     }
 
     // tests stats hits
@@ -114,7 +114,7 @@ public class TestCache {
         cache.get(key0);
         cache.get(key1);
         cache.get(key2);
-        assertEquals(cache.getStats().getHits(), 2);
+        assertEquals(2, cache.getStats().getHits());
     }
 
     // test stats misses
@@ -123,7 +123,7 @@ public class TestCache {
         cache.get(key0);
         cache.get(key1);
         cache.get(key2);
-        assertEquals(cache.getStats().getMisses(), 1);
+        assertEquals(1, cache.getStats().getMisses());
     }
 
     // test stats requests

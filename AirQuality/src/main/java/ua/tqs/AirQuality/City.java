@@ -2,8 +2,8 @@ package ua.tqs.AirQuality;
 
 import lombok.*;
 
-@ToString
-@EqualsAndHashCode()
+import java.util.Objects;
+
 @Data
 public class City {
 
@@ -40,14 +40,22 @@ public class City {
     }
 
     @Override
-    public boolean equals(Object o){
-        City other = (City) o;
-        return this.name.equals(((City) o).name) &&
-                this.state.equals(((City) o).state) &&
-                this.country.equals(((City) o).country) &&
-                this.coords.equals(((City) o).coords) &&
-                this.aqi == ((City) o).aqi &&
-                this.mainProblem.equals(((City) o).mainProblem) &&
-                this.timeStamp.equals(((City) o).timeStamp);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return aqi == city.aqi &&
+                cached == city.cached &&
+                name.equals(city.name) &&
+                state.equals(city.state) &&
+                country.equals(city.country) &&
+                coords.equals(city.coords) &&
+                Objects.equals(mainProblem, city.mainProblem) &&
+                Objects.equals(timeStamp, city.timeStamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, state, country, coords, aqi, mainProblem, timeStamp, cached);
     }
 }

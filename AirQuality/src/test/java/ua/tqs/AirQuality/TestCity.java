@@ -16,18 +16,6 @@ public class TestCity {
     }
 
     @Test
-    public void testCoordsEquals(){
-        Coords coords = new Coords(-9.131168, 38.721676);
-        assertEquals(coords, city.getCoords());
-    }
-
-    @Test
-    public void testCoordsNotEquals(){
-        Coords coords = new Coords(-10.0001, 35.999991);
-        assertNotEquals(coords, city.getCoords());
-    }
-
-    @Test
     public void testEquals(){
         City newCity = new City("Lisbon", "Lisbon", "Portugal", new Coords(-9.131168, 38.721676),
                 4, "p2", "2020-04-11T23:00:00.000Z");
@@ -44,6 +32,32 @@ public class TestCity {
     @Test
     public void testCopy(){
         City newCity = city.copy();
-        assertEquals(newCity, city);
+        assertEquals(city, newCity);
+    }
+
+    @Test
+    public void equalsNull(){
+        assertNotEquals(city, null);
+    }
+
+    @Test
+    public void equalsNotCity(){
+        Object o = new Object();
+        assertNotEquals(city, o);
+    }
+
+    @Test
+    public void testHashCode(){
+        City newCity = city.copy();
+        assertEquals(city.hashCode(), newCity.hashCode());
+    }
+
+    @Test
+    public void testHashCodeDiff(){
+        City newCity = city.copy();
+        city.setName("Porto");
+        city.setState("Porto");
+        city.setCountry("Portugal");
+        assertNotEquals(city.hashCode(), newCity.hashCode());
     }
 }
