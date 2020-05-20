@@ -7,7 +7,7 @@ import tqs.group4.bestofbooks.service.OrderService;
 
 import java.util.List;
 
-@CrossOrigin//////
+@CrossOrigin////////
 @RestController
 @RequestMapping(value="/api/buyer")
 public class BuyersController {
