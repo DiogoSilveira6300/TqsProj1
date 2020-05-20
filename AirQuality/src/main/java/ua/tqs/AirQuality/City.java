@@ -12,7 +12,7 @@ public class City {
     private String country;
 
     private Coords coords;
-
+    private int shit; ///////////////////////////////////////////
     private int aqi;
     private String mainProblem;
 
