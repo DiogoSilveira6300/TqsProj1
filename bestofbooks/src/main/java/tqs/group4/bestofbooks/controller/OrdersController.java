@@ -39,5 +39,5 @@ public class OrdersController {
     public Double computePriceForIncomingOrder(@Valid @RequestBody List<IncomingBookOrderDTO> incomingBookOrderDTOList)
             throws BookNotFoundException {
         return service.computePriceForIncomingOrder(incomingBookOrderDTOList);
-    }//
+    }
 }
