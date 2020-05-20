@@ -18,7 +18,7 @@ public class Coords {
     }
 
     public double getLon() {
-        return lon + 4;
+        return lon;
     }
 
     // setters
