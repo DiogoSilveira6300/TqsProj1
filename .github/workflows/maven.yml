@@ -36,7 +36,7 @@ jobs:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
         volumes:
-            - $(pwd)/init.psql:/docker-entrypoint-initdb.d/init.sql
+            - rdb/init.psql:/docker-entrypoint-initdb.d/init.sql
 
     steps:
     - uses: actions/checkout@v2
