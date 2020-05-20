@@ -49,4 +49,4 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
-      run: mvn -B verify --file bestofbooks/pom.xml
+      run: mvn -B verify --file ${{ github.workspace }}/bestofbooks/pom.xml
