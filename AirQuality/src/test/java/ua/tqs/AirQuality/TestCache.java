@@ -67,7 +67,7 @@ public class TestCache {
     @Test
     public void testGetBadCityData(){
         City city = cache.get(key2);
-        assertNotNull(city);
+        assertNull(city);
     }
 
     // test expire
