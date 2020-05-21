@@ -20,7 +20,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag database
+      run: docker build . --file rdb/Dockerfile --tag database
     - name: Execute built image
       run: docker run database -e POSTGRES_USER="user" -e POSTGRES_PASSWORD="user" -e POSTGRES_DB="book-store" --expose 5432:5432 --health-cmd pg_isready --health-interval 10 --health-timeout 5s --health-retries 5
     - name: Cache Maven packages
