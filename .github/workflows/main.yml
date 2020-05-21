@@ -24,4 +24,4 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
-      run: mvn sonar:sonar -Dsonar.projectKey=tqs.group4:bestofbooks -Dsonar.host.url=http://192.168.160.70:9000 -Dsonar.login=a2829e66d2bde02bece1bd8177a2d35ed735483e
+      run: mvn sonar:sonar -f bestofbooks/pom.xml -Dsonar.projectKey=tqs.group4:bestofbooks -Dsonar.host.url=http://192.168.160.70:9000 -Dsonar.login=a2829e66d2bde02bece1bd8177a2d35ed735483e
