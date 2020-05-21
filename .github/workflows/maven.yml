@@ -22,7 +22,7 @@ jobs:
     - name: Build the tagged Docker image
       run: docker build . --file rdb/Dockerfile --tag database
     - name: Execute built image
-      run: docker run database -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_DB=book_store --expose 5432:5432 --health-cmd pg_isready --health-interval 10 --health-timeout 5s --health-retries 5
+      run: docker run-e POSTGRES_USER="user" -e POSTGRES_PASSWORD="user" -e POSTGRES_DB="book_store" --expose 5432:5432 --health-cmd pg_isready --health-interval 10 --health-timeout 5s --health-retries 5 database 
     - name: Cache Maven packages
       uses: actions/cache@v1
       with:
