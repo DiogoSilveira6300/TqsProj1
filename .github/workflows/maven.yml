@@ -48,7 +48,6 @@ jobs:
     #  run: mvn clean verify sonar:sonar --file bestofbooks/pom.xml
     - name: Run maven script
       uses: xlui/action-maven-cli/jdk11@master
-      id: test
       with:
         lifecycle: 'clean package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
       env:
