@@ -49,7 +49,7 @@ jobs:
     - name: Run maven script
       uses: xlui/action-maven-cli/jdk11@master
       with:
-        lifecycle: 'clean package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+        lifecycle: 'clean package'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
