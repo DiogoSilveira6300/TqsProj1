@@ -43,3 +43,9 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn -B verify --file bestofbooks/pom.xml
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@master
+      with:
+        projectBaseDir: bestofbooks
+        host: ${{ secrets.SONARQUBE_HOST }}
+        login: ${{ secrets.SONARQUBE_TOKEN }}
