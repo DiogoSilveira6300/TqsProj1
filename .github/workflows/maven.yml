@@ -48,8 +48,6 @@ jobs:
     #  run: mvn clean verify sonar:sonar --file bestofbooks/pom.xml
     - name: Run maven script
       uses: xlui/action-maven-cli/jdk11@master
-      with:
-        lifecycle: 'clean package'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
