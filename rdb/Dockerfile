@@ -1,4 +1,4 @@
 
 FROM library/postgres
 
-COPY . /docker-entrypoint-initdb.d/
+COPY rdb/init.psql /docker-entrypoint-initdb.d/
