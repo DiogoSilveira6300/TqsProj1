@@ -46,3 +46,11 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean verify --file bestofbooks/pom.xml
+     #CD
+    - name: Add remote origin
+      run: |
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+    #- run: heroku buildpacks:set heroku/java -a tqsproj1
+    - name: Deploy to Heroku
+      run: |
+        git push heroku HEAD:master -f
