@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StockService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.service</a> &gt; <span class="el_source">StockService.java</span></div><h1>StockService.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import tqs.group4.bestofbooks.dto.StockDto;
+import tqs.group4.bestofbooks.dto.UserDto;
+import tqs.group4.bestofbooks.exception.BookNotFoundException;
+import tqs.group4.bestofbooks.exception.ForbiddenUserException;
+import tqs.group4.bestofbooks.exception.LoginRequiredException;
+import tqs.group4.bestofbooks.exception.UserNotFoundException;
+import tqs.group4.bestofbooks.model.Book;
+import tqs.group4.bestofbooks.repository.BookRepository;
+
+@Transactional
+@Service
+<span class="fc" id="L23">public class StockService {</span>
+
+	@Autowired
+    private BookRepository bookRepository;
+	
+	@Autowired
+	private LoginServices loginService;
+	
+	
+	public Page&lt;Book&gt; getPublisherBooks(String publisherName, HttpServletRequest request, Pageable pageable) throws UserNotFoundException, LoginRequiredException, ForbiddenUserException{
+<span class="fc" id="L33">		String username = loginService.getSessionUsername(request);</span>
+<span class="fc" id="L34">		loginService.checkUserIsPublisher(username);</span>
+<span class="fc" id="L35">        UserDto dto = loginService.getUserDtoByUsername(username);</span>
+        
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if(!dto.getAttributes().get(&quot;name&quot;).equals(publisherName)) {</span>
+<span class="fc" id="L38">        	throw new ForbiddenUserException(&quot;User not allowed.&quot;);</span>
+        }
+
+<span class="fc" id="L41">		return bookRepository.findByPublisherName(dto.getAttributes().get(&quot;name&quot;), pageable);</span>
+	}
+
+
+	public StockDto updateBookStock(String publisherName, @Valid StockDto stockDto, HttpServletRequest request) throws LoginRequiredException, ForbiddenUserException, UserNotFoundException, BookNotFoundException {
+<span class="fc" id="L46">		String username = loginService.getSessionUsername(request);</span>
+<span class="fc" id="L47">		loginService.checkUserIsPublisher(username);</span>
+<span class="fc" id="L48">        UserDto dto = loginService.getUserDtoByUsername(username);</span>
+        
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(!dto.getAttributes().get(&quot;name&quot;).equals(publisherName)) {</span>
+<span class="fc" id="L51">        	throw new ForbiddenUserException(&quot;User not allowed.&quot;);</span>
+        }
+        
+<span class="fc" id="L54">        Book book = bookRepository.findByIsbn(stockDto.getIsbn());</span>
+        
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (book == null) {</span>
+<span class="fc" id="L57">        	throw new BookNotFoundException(&quot;Book with &quot; + stockDto.getIsbn() + &quot; was not found in the platform.&quot;);</span>
+        }
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        else if (!book.getPublisherName().equals(publisherName)) {</span>
+<span class="fc" id="L60">        	throw new ForbiddenUserException(&quot;Can't add stock to a book that doesn't belong to the publisher &quot;+publisherName+&quot;.&quot;);</span>
+        }
+        
+<span class="fc" id="L63">        Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getDescription(), book.getPrice(), book.getQuantity()+stockDto.getQuantity(),</span>
+<span class="fc" id="L64">                book.getCategory(), book.getPublisherName());</span>
+<span class="fc" id="L65">        bookRepository.save(newBook);</span>
+        
+<span class="fc" id="L67">		return new StockDto(book.getIsbn(), newBook.getQuantity());</span>
+	}
+
+	public void decreaseStockAfterSale(Book book, int quantitySold) {
+<span class="nc" id="L71">		Book newBook = new Book(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getDescription(),</span>
+<span class="nc" id="L72">				book.getPrice(), book.getQuantity() - quantitySold,</span>
+<span class="nc" id="L73">				book.getCategory(), book.getPublisherName());</span>
+<span class="nc" id="L74">		bookRepository.save(newBook);</span>
+<span class="nc" id="L75">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

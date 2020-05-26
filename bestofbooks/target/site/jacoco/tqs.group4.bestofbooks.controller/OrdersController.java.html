@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrdersController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.controller</a> &gt; <span class="el_source">OrdersController.java</span></div><h1>OrdersController.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import tqs.group4.bestofbooks.dto.IncomingBookOrderDTO;
+import tqs.group4.bestofbooks.dto.OrderDTO;
+import tqs.group4.bestofbooks.dto.IncomingOrderDTO;
+import tqs.group4.bestofbooks.exception.*;
+import tqs.group4.bestofbooks.service.OrderService;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@CrossOrigin
+@RestController
+@RequestMapping(&quot;/api/order&quot;)
+<span class="fc" id="L20">public class OrdersController {</span>
+
+    @Autowired
+    private OrderService service;
+
+    @GetMapping(value=&quot;/{id}&quot;)
+    public OrderDTO getOrderById(@PathVariable int id) {
+<span class="fc" id="L27">        return service.getOrderById(id);</span>
+    }
+
+    @PostMapping(&quot;/&quot;)
+    public ResponseEntity&lt;OrderDTO&gt; createOrder(@Valid @RequestBody IncomingOrderDTO incomingOrderDTO)
+            throws BookNotFoundException, UserNotFoundException, NotEnoughStockException,
+            RepeatedPaymentReferenceException, EmptyIncomingOrderException {
+<span class="fc" id="L34">        OrderDTO createdOrder = service.createOrderDTO(incomingOrderDTO);</span>
+<span class="fc" id="L35">        return new ResponseEntity&lt;&gt;(createdOrder, HttpStatus.CREATED);</span>
+    }
+
+    @PostMapping(&quot;/estimated-price&quot;)
+    public Double computePriceForIncomingOrder(@Valid @RequestBody List&lt;IncomingBookOrderDTO&gt; incomingBookOrderDTOList)
+            throws BookNotFoundException {
+<span class="fc" id="L41">        return service.computePriceForIncomingOrder(incomingBookOrderDTOList);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

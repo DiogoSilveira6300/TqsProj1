@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Order.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.model</a> &gt; <span class="el_source">Order.java</span></div><h1>Order.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.model;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Entity
+@Table(name = &quot;Orders&quot;)
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;, nullable = false)
+    private Integer id;
+    @Basic
+    @Column(name = &quot;payment_reference&quot;, nullable = false, length = 20)
+    private String paymentReference;
+    @Basic
+    @Column(name = &quot;address&quot;, nullable = false, length = 100)
+    private String address;
+    @Basic
+    @Column(name = &quot;final_price&quot;, nullable = false, precision = 2)
+    private Double finalPrice;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = &quot;username_buyer&quot;, referencedColumnName = &quot;username&quot;, nullable = false)
+    private Buyer buyer;
+    @OneToMany(mappedBy = &quot;order&quot;, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection&lt;BookOrder&gt; bookOrders;
+//    @OneToMany(mappedBy = &quot;ordersByOrderId&quot;, fetch = FetchType.LAZY)
+//    private Collection&lt;Commission&gt; commissionsById;
+
+<span class="fc" id="L31">    public Order() {</span>
+<span class="fc" id="L32">    }</span>
+
+<span class="fc" id="L34">    public Order(String paymentReference, String address, Double finalPrice, Buyer buyer) {</span>
+<span class="fc" id="L35">        this.paymentReference = paymentReference;</span>
+<span class="fc" id="L36">        this.address = address;</span>
+<span class="fc" id="L37">        this.finalPrice = finalPrice;</span>
+<span class="fc" id="L38">        this.buyer = buyer;</span>
+<span class="fc" id="L39">        this.bookOrders = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">    }</span>
+
+    public void setId(Integer id) {
+<span class="fc" id="L43">        this.id = id;</span>
+<span class="fc" id="L44">    }</span>
+
+    public Integer getId() {
+<span class="fc" id="L47">        return id;</span>
+    }
+
+    public String getPaymentReference() {
+<span class="fc" id="L51">        return paymentReference;</span>
+    }
+
+    public String getAddress() {
+<span class="fc" id="L55">        return address;</span>
+    }
+
+    public Double getFinalPrice() {
+<span class="fc" id="L59">        return finalPrice;</span>
+    }
+
+    public Buyer getBuyer() {
+<span class="fc" id="L63">        return buyer;</span>
+    }
+
+    public Collection&lt;BookOrder&gt; getBookOrders() {
+<span class="fc" id="L67">        return bookOrders;</span>
+    }
+
+    public void addBookOrder(BookOrder bookOrder) {
+<span class="fc" id="L71">        this.bookOrders.add(bookOrder);</span>
+<span class="fc" id="L72">    }</span>
+
+//    public Collection&lt;Commission&gt; getCommissionsById() {
+//        return commissionsById;
+//    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

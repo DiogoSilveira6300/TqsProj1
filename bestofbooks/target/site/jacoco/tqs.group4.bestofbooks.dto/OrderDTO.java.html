@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.dto</a> &gt; <span class="el_source">OrderDTO.java</span></div><h1>OrderDTO.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.dto;
+
+import tqs.group4.bestofbooks.model.Order;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class OrderDTO {
+    private Integer id;
+    private String paymentReference;
+    private String address;
+    private Double finalPrice;
+    private String buyerName;
+    private List&lt;BookOrderDTO&gt; bookOrders;
+
+<span class="fc" id="L18">    public OrderDTO(Integer id, String paymentReference, String address, Double finalPrice, String buyerName,</span>
+                    Collection&lt;BookOrderDTO&gt; bookOrders) {
+<span class="fc" id="L20">        this.id = id;</span>
+<span class="fc" id="L21">        this.paymentReference = paymentReference;</span>
+<span class="fc" id="L22">        this.address = address;</span>
+<span class="fc" id="L23">        this.finalPrice = finalPrice;</span>
+<span class="fc" id="L24">        this.buyerName = buyerName;</span>
+<span class="fc" id="L25">        this.bookOrders = new ArrayList&lt;&gt;(bookOrders);</span>
+<span class="fc" id="L26">    }</span>
+
+    public void setId(Integer id) {
+<span class="nc" id="L29">        this.id = id;</span>
+<span class="nc" id="L30">    }</span>
+
+    public Integer getId() {
+<span class="fc" id="L33">        return id;</span>
+    }
+
+    public String getPaymentReference() {
+<span class="fc" id="L37">        return paymentReference;</span>
+    }
+
+    public String getAddress() {
+<span class="fc" id="L41">        return address;</span>
+    }
+
+    public Double getFinalPrice() {
+<span class="fc" id="L45">        return finalPrice;</span>
+    }
+
+    public String getBuyerName() {
+<span class="fc" id="L49">        return buyerName;</span>
+    }
+
+    public List&lt;BookOrderDTO&gt; getBookOrders() {
+<span class="fc" id="L53">        return bookOrders;</span>
+    }
+
+    public static OrderDTO fromOrder(Order order) {
+<span class="fc" id="L57">        String buyerName = order.getBuyer().getUsername();</span>
+<span class="fc" id="L58">        return new OrderDTO(</span>
+<span class="fc" id="L59">                order.getId(),</span>
+<span class="fc" id="L60">                order.getPaymentReference(),</span>
+<span class="fc" id="L61">                order.getAddress(),</span>
+<span class="fc" id="L62">                order.getFinalPrice(),</span>
+<span class="fc" id="L63">                buyerName,</span>
+                // the line below will only work correctly if called inside a @Transactional
+<span class="fc" id="L65">                order.getBookOrders().stream().map(BookOrderDTO::fromBookOrder).collect(Collectors.toList())</span>
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

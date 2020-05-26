@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PublisherController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.controller</a> &gt; <span class="el_source">PublisherController.java</span></div><h1>PublisherController.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+
+import tqs.group4.bestofbooks.dto.StockDto;
+import tqs.group4.bestofbooks.exception.BookNotFoundException;
+import tqs.group4.bestofbooks.exception.ForbiddenUserException;
+import tqs.group4.bestofbooks.exception.LoginRequiredException;
+import tqs.group4.bestofbooks.exception.UserNotFoundException;
+import tqs.group4.bestofbooks.model.Book;
+import tqs.group4.bestofbooks.service.StockService;
+import tqs.group4.bestofbooks.dto.RevenueDTO;
+import tqs.group4.bestofbooks.service.RevenueService;
+
+
+
+@CrossOrigin
+@RestController
+@RequestMapping(&quot;/api/publisher&quot;)
+<span class="fc" id="L36">public class PublisherController {</span>
+	
+	@Autowired
+    private StockService stockService;
+
+    @Autowired
+    private RevenueService revenueService;
+	
+	
+	@GetMapping(&quot;{publisherName}/stock&quot;)
+    public Page&lt;Book&gt; getAvailableStock(@PathVariable String publisherName, Pageable pageable, HttpServletRequest request) throws UserNotFoundException, LoginRequiredException, ForbiddenUserException {
+        
+<span class="fc" id="L48">		return stockService.getPublisherBooks(publisherName, request, pageable);</span>
+    }
+	
+	@PutMapping(&quot;{publisherName}/stock&quot;)
+	public ResponseEntity&lt;StockDto&gt; updateAvailableStock(@PathVariable String publisherName, @Valid @RequestBody StockDto stockDto, HttpServletRequest request) throws LoginRequiredException, ForbiddenUserException, UserNotFoundException, BookNotFoundException{
+<span class="fc" id="L53">		StockDto dto = stockService.updateBookStock(publisherName, stockDto, request);</span>
+		
+<span class="fc" id="L55">		return new ResponseEntity&lt;&gt;(dto, HttpStatus.OK);</span>
+	}
+
+    @GetMapping(&quot;/{publisherName}/revenue&quot;)
+    public Page&lt;RevenueDTO&gt; getRevenuesByPublisher(@PathVariable String publisherName, Pageable pageable)
+            throws UserNotFoundException {
+<span class="fc" id="L61">        return revenueService.getRevenuesByPublisher(publisherName, pageable);</span>
+    }
+
+    @GetMapping(&quot;/{publisherName}/revenue/total&quot;)
+    public Double getRevenuesTotalByPublisher(@PathVariable String publisherName)
+            throws UserNotFoundException {
+<span class="fc" id="L67">        return revenueService.getRevenuesTotalByPublisher(publisherName);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

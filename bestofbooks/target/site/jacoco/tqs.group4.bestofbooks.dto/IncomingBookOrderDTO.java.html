@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IncomingBookOrderDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.dto</a> &gt; <span class="el_source">IncomingBookOrderDTO.java</span></div><h1>IncomingBookOrderDTO.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.dto;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.util.Objects;
+
+public class IncomingBookOrderDTO {
+    @NotBlank(message = &quot;Isbn cannot be null or whitespace&quot;)
+    @Pattern(regexp=&quot;[0-9]{13}&quot;)
+    private String isbn;
+    @NotNull(message = &quot;Order quantity cannot be null&quot;)
+    @Min(value = 1, message = &quot;Order quantity should not be less than 1&quot;)
+    private int quantity;
+
+<span class="fc" id="L17">    public IncomingBookOrderDTO(String isbn, int quantity) {</span>
+<span class="fc" id="L18">        this.isbn = isbn;</span>
+<span class="fc" id="L19">        this.quantity = quantity;</span>
+<span class="fc" id="L20">    }</span>
+
+    public String getIsbn() {
+<span class="fc" id="L23">        return isbn;</span>
+    }
+
+    public int getQuantity() {
+<span class="fc" id="L27">        return quantity;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L33" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L34">        IncomingBookOrderDTO that = (IncomingBookOrderDTO) o;</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        return quantity == that.quantity &amp;&amp;</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">                Objects.equals(isbn, that.isbn);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L41">        return Objects.hash(isbn, quantity);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

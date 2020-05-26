@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IncomingOrderDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bestofbooks</a> &gt; <a href="index.source.html" class="el_package">tqs.group4.bestofbooks.dto</a> &gt; <span class="el_source">IncomingOrderDTO.java</span></div><h1>IncomingOrderDTO.java</h1><pre class="source lang-java linenums">package tqs.group4.bestofbooks.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+public class IncomingOrderDTO {
+    @NotEmpty(message = &quot;bookOrders cannot be empty.&quot;)
+    @JsonProperty(&quot;bookOrders&quot;)
+    @Valid
+    private List&lt;IncomingBookOrderDTO&gt; incomingBookOrderDTOS;
+   
+    @Size(min = 1, max = 20, message = &quot;Buyer's username must be between 1 and 20 characters&quot;)
+    @NotBlank(message = &quot;Buyer's username cannot be null or whitespace&quot;)
+    private String buyerUsername;
+   
+    @Size(min = 1, max = 20, message = &quot;Payment reference must be between 1 and 20 characters&quot;)
+    @NotBlank(message = &quot;Payment reference cannot be null or whitespace&quot;)
+    private String paymentReference;
+   
+    @Size(min = 1, max = 100, message = &quot;Address must be between 1 and 100 characters&quot;)
+    @NotBlank(message = &quot;Address cannot be null or whitespace&quot;)
+    private String address;
+
+<span class="fc" id="L31">    public IncomingOrderDTO() {</span>
+<span class="fc" id="L32">    }</span>
+
+<span class="fc" id="L34">    public IncomingOrderDTO(List&lt;IncomingBookOrderDTO&gt; incomingBookOrderDTOS, String buyerUsername,</span>
+                            String paymentReference, String address) {
+<span class="fc" id="L36">        this.incomingBookOrderDTOS = incomingBookOrderDTOS;</span>
+<span class="fc" id="L37">        this.buyerUsername = buyerUsername;</span>
+<span class="fc" id="L38">        this.paymentReference = paymentReference;</span>
+<span class="fc" id="L39">        this.address = address;</span>
+<span class="fc" id="L40">    }</span>
+
+    public List&lt;IncomingBookOrderDTO&gt; getIncomingBookOrderDTOS() {
+<span class="fc" id="L43">        return incomingBookOrderDTOS;</span>
+    }
+
+    public String getBuyerUsername(){
+<span class="fc" id="L47">        return buyerUsername;</span>
+    }
+
+    public String getPaymentReference(){
+<span class="fc" id="L51">        return paymentReference;</span>
+    }
+
+    public String getAddress(){
+<span class="fc" id="L55">        return address;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L61" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L62">        IncomingOrderDTO that = (IncomingOrderDTO) o;</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        return Objects.equals(incomingBookOrderDTOS, that.incomingBookOrderDTOS) &amp;&amp;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                Objects.equals(buyerUsername, that.buyerUsername) &amp;&amp;</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                Objects.equals(paymentReference, that.paymentReference) &amp;&amp;</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                Objects.equals(address, that.address);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L71">        return Objects.hash(incomingBookOrderDTOS, buyerUsername, paymentReference, address);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
