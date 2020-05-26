@@ -19,6 +19,7 @@ services:
                 ipv4_address: 172.19.0.2
         environment: 
             POSTGRES_USER: "user"
+            POSTGRES_HOST_AUTH_METHOD: trust
             POSTGRES_PASSWORD: "user"
             POSTGRES_DB: "book_store"
             PGDATA: /var/lib/postgres
