@@ -5,6 +5,6 @@ build:
     docker:
         web: bestofbooks/Dockerfile
         database: rdb/Dockerfile
-run:
-    web:
-    database:
+release:
+    image: database
+    command: psql -U user < rdb/init.psql
