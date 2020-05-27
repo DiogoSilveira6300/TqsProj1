@@ -4,7 +4,7 @@ setup:
 build:
     docker:
         web: bestofbooks/Dockerfile
-        database: rdb/Dockerfile.
+        database: rdb/Dockerfile
 
 run: 
     main_app:
