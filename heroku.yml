@@ -4,8 +4,10 @@ setup:
 build:
     docker:
         web: bestofbooks/Dockerfile
-        database: rdb/Dockerfile
-release:
-    image: database
-    command: 
-        - psql -U user < rdb/init.psql
+        database: rdb/Dockerfile.
+
+run: 
+    main_app:
+        command:
+            - java -jar /app.jar
+        image: web
