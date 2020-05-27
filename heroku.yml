@@ -1,5 +1,0 @@
-build:
-    docker:
-      web: bestofbooks/Dockerfile
-run:
-    web: docker-compose up
