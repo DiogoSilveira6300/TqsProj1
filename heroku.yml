@@ -1,6 +1,4 @@
 build:
     docker:
-        web: bestofbooks/Dockerfile
+        main_application: bestofbooks/Dockerfile
         database: rdb/Dockerfile
-run:
-    web: docker-compose up
