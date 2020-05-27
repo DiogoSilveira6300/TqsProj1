@@ -1,4 +1,10 @@
+setup:
+    addons:
+    - plan: heroku-postgresql
 build:
     docker:
         web: bestofbooks/Dockerfile
         database: rdb/Dockerfile
+run:
+    web:
+    database:
