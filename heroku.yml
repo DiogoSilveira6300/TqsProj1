@@ -7,4 +7,5 @@ build:
         database: rdb/Dockerfile
 release:
     image: database
-    command: psql -U user < rdb/init.psql
+    command: 
+        - psql -U user < rdb/init.psql
