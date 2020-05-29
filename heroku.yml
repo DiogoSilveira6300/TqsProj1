@@ -4,6 +4,3 @@ setup:
 build:
     docker:
         web: bestofbooks/Dockerfile
-run:
-    web: java -jar /app.jar
-    ###
