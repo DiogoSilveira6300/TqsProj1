@@ -1,13 +1,8 @@
 setup:
     addons:
-    - plan: heroku-postgresql
+      - plan: heroku-postgresql
 build:
     docker:
         web: bestofbooks/Dockerfile
-        database: rdb/Dockerfile
-
-run: 
-    main_app:
-        command:
-            - java -jar /app.jar
-        image: web
+run:
+    web: java -jar /app.jar
