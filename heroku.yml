@@ -1,5 +1,7 @@
 build:
     docker:
       web: bestofbooks/Dockerfile
+      database: rdb/Dockerfile
 run:
-    web: bundle exec puma -C config/puma.rb
+    web: docker-compose up -d
+    database: docker-compose up -d
