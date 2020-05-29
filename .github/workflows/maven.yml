@@ -20,9 +20,6 @@ jobs:
       with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
-    #CD
-    - name: Heroku Login
-      run: git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
     - name: Add remote origin
       run: |
         git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
